@@ -82,10 +82,8 @@ async def add_final_review_to_state(ctx: Context, final_review: str) -> str:
     return "Final review added to state."
 
 def post_review_to_github(pr_number: int, review_comment: str) -> str:
-    """Useful for posting a final review comment to a pull request on GitHub.
-    Takes the PR number and the final review comment."""
     pull_request = repo.get_pull(pr_number)
-    pull_request.create_review(body=review_comment)
+    pull_request.create_review(body=review_comment, event="COMMENT")
     return "Review posted to GitHub."
 
 llm = OpenAIResponses(
