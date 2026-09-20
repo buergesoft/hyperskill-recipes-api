@@ -16,7 +16,7 @@ dotenv.load_dotenv()
 
 git = Github(auth=Auth.Token(os.getenv("GITHUB_TOKEN"))) if os.getenv("GITHUB_TOKEN") else None
 
-repo_url = "https://github.com/buergesoft/hyperskill-recipes-api.git"
+repo_url = os.getenv("REPOSITORY")
 repo_name = repo_url.split('/')[-1].replace('.git', '')
 username = repo_url.split('/')[-2]
 full_repo_name = f"{username}/{repo_name}"
@@ -94,9 +94,6 @@ llm = OpenAIResponses(
     api_base=os.getenv("OPENAI_BASE_URL"),
     reasoning_effort="medium",
 )
-
-repository = os.getenv("REPOSITORY")
-
 
 get_pr_details_tool = FunctionTool.from_defaults(get_pr_details)
 get_commit_details_tool = FunctionTool.from_defaults(get_commit_details)
